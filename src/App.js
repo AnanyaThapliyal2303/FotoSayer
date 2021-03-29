@@ -1,8 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import { db } from './firebase';
 import Post from './Post';
 
 function App() {
+    const [posts, setPosts]=useState([]);
+
+// useEffect Runs a piece of code based on a specific condition
+
+useEffect(()=>{
+    //this is where code runs
+db.collection('posts').onSnapshot(snapshot =>{
+    //every time a new post is added, this code fires
+    setPosts(snapshot.docs.map(doc => ({
+        id: doc.id, 
+        post: doc.data()
+    }))); //map allows to loop through a lot of documents like for loop
+})
+},[]); //it would run once when the app component loads but also everytime the variable '' changes
+
     return ( 
     <div className = "App" >
         <div className = "app__header" >
@@ -15,9 +31,13 @@ function App() {
         
         <h1> Let 's build an Instagram Clone with React</h1>
 
-        <Post username='ananya.thapliyal' caption=" Hello Cutiee..." imageUrl='https://petavistaaquaculture.in/team/Dwitrisha.jpeg'/>
-        <Post username='dwitrisha' caption=" Hello" imageUrl='https://www.ikea.com/in/en/images/products/smycka-artificial-flower-rose-red__0903311_pe596728_s5.jpg'/>
-        <Post username='swim.trish' caption=" World" imageUrl='https://www.thespruce.com/thmb/XuFXZRtRZTcA4qkm4WMc_dTkO8s=/2832x2832/smart/filters:no_upscale()/gazania-flowers-1315701_10-d5712d24749940ee90fab455ed9d0562.JPG'/>
+        {
+            posts.map(({id, post}) => (
+                <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+            ))
+        }
+
+
 
         </div>
     );
