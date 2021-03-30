@@ -38,7 +38,28 @@ function App() {
     const [username, setUsername]=useState(''); 
     const [password, setPassword]=useState(''); 
     const [email, setEmail]=useState(''); 
+    const [user, setUser]=useState(null);
     //creating a modal so that when user clicks button, a pop up is shown
+
+  useEffect(()=>{
+    const unsubscribe= auth.onAuthStateChanged((authUser)=>{
+      if(authUser){
+        //user has logged in
+        console.log(authUser);
+        setUser(authUser); 
+        //it survives refresh(if you are logged in, you will remain logged in on refreshing)
+
+      } else {
+        //user has logged out
+        setUser(null);
+      }
+    })
+
+    return ()=>{
+      //perform some cleanup actions
+      unsubscribe();
+    }
+    },[user, username]);
 
     
     // useEffect Runs a piece of code based on a specific condition
@@ -58,9 +79,14 @@ db.collection('posts').onSnapshot(snapshot =>{
     const signUp=(event)=>{
         event.preventDefault();
 
-        auth.createUserWithEmailAndPassword(email, password) //being passed from state variables
-        .then()
-        .catch((error)=>alert(error.message))
+        auth
+        .createUserWithEmailAndPassword(email, password) //being passed from state variables
+        .then((authUser)=> {
+          return authUser.user.updateProfile({
+            displayName: username
+          })
+        })
+        .catch((error)=>alert(error.message));
     }
 
     return ( 
@@ -110,7 +136,11 @@ db.collection('posts').onSnapshot(snapshot =>{
             />
         </div>
 
+        {user ? (
+        <Button onClick={()=> auth.signOut()}>Logout</Button>
+        ): (
         <Button onClick={()=> setOpen(true)}>Sign up</Button>
+        )}
         
         <h1> Let 's build an Instagram Clone with React</h1>
 
