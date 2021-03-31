@@ -105,13 +105,6 @@ db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
 
     return ( 
     <div className = "app" >
-      
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName}/>
-      ):(
-        <h3>Sorry, you need to login to Upload</h3>
-      )}
-      
 
         <Modal
         open={open}
@@ -189,9 +182,7 @@ db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
               src = "https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
               alt = "insta" 
             />
-        </div>
-
-        {user ? (
+            {user ? (
         <Button onClick={()=> auth.signOut()}>Logout</Button>
         ): (
           <div className="app__loginContainer">
@@ -199,6 +190,8 @@ db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
              <Button onClick={()=> setOpen(true)}>Sign up</Button>
           </div>
         )}
+        </div>
+
         
         <h1> Let 's build an Instagram Clone with React</h1>
 
@@ -208,7 +201,12 @@ db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
             ))
         }
 
-
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName}/>
+      ):(
+        <h3>Sorry, you need to login to Upload</h3>
+      )}
+      
 
         </div>
     );
