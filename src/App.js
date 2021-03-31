@@ -5,6 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Post from './Post';
 import { Button, Input } from '@material-ui/core';
+import ImageUpload from './ImageUpload';
 
 function getModalStyle() {
     const top = 50;
@@ -104,6 +105,14 @@ db.collection('posts').onSnapshot(snapshot =>{
 
     return ( 
     <div className = "app" >
+      
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName}/>
+      ):(
+        <h3>Sorry, you need to login to Upload</h3>
+      )}
+      
+
         <Modal
         open={open}
         onClose={()=> setOpen(false)}
