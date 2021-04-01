@@ -19,19 +19,36 @@
 
 .app__header {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid lightgray;
     object-fit: contain;
     display: flex;
     justify-content: space-between;
+    position: sticky; 
+    top: 0; 
+    z-index: 100;
 }
 
 .app__headerImage{
-    object-fit: contain;
-    width:30%;
+    width:15%;
+}
+
+@media(max-width: 900px){
+    .app__headerImage{
+        width:45%;
+    }     
 }
 
 .app__signup {
 display: flex;
 flex-direction: column;
 }
+
+.logout{
+    margin-right: 2rem;
+}
+
+.avatar{
+    margin-left: 0.8rem;
+}
+

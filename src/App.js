@@ -100,7 +100,7 @@ function App() {
             <center>
               <img
                 className="app__headerImage"
-                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+                src="https://images.pexels.com/photos/7350114/pexels-photo-7350114.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                 alt=""
               />
             </center>
@@ -128,7 +128,7 @@ function App() {
             <center>
               <img
                 className="app__headerImage"
-                src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+                src="https://images.pexels.com/photos/7350114/pexels-photo-7350114.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                 alt=""
               />
             </center>
@@ -157,17 +157,17 @@ function App() {
       <div className="app__header">
         <img
           className="app__headerImage"
-          src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
+          src="https://images.pexels.com/photos/7350114/pexels-photo-7350114.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
           alt=""
         />
         {user?.displayName ? (
           <div className="app__headerRight">
-            <Button onClick={() => auth.signOut()}>Logout</Button>
-            <Avatar
+            <div  className="logout"><Button onClick={() => auth.signOut()}>Logout</Button></div>
+            <div className="avatar"><Avatar
               className="app__headerAvatar"
               alt={user.displayName}
               src="/static/images/avatar/1.jpg"
-            />
+            /></div>
           </div>
         ) : (
           <form className="app__loginHome">
